@@ -1,6 +1,23 @@
+"use client"   
+import { signup } from "@/action/signup";
 import Link from "next/link";
-
+import { useState } from "react";
+import { useRouter } from 'next/navigation';
 export default function SignUp() {
+    const [name,setname]=useState('');
+    const [email,setemail]=useState('');
+    const [password,setpassword]=useState('');
+    const Route=useRouter();
+    const handlesignup=()=>{
+        try {
+           
+           const data= signup(name,email,password);
+                 Route.push('/start')
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
             <div className="w-full max-w-md bg-gray-800 shadow-lg rounded-lg p-8">
@@ -11,6 +28,9 @@ export default function SignUp() {
                         <label className="block text-sm font-medium">Name</label>
                         <input
                             type="text"
+                            value={name}
+                            required
+                            onChange={(e)=>setname(e.target.value)}
                             placeholder="Enter your Name"
                             className="mt-1 w-full p-3 border bg-slate-800 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
@@ -21,6 +41,9 @@ export default function SignUp() {
                         <label className="block text-sm font-medium">Email</label>
                         <input
                             type="email"
+                            value={email}
+                            required
+                            onChange={(e)=>setemail(e.target.value)}
                             placeholder="Enter your email"
                             className="mt-1 w-full p-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-800"
                         />
@@ -32,8 +55,10 @@ export default function SignUp() {
                         <input
                             type="password"
                             placeholder="Enter your password"
-                            
-                            className="mt-1 w-full p-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-800"
+                            value={password}
+                            required
+                            onChange={(e)=>setpassword(e.target.value)}
+                           className="mt-1 w-full p-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-800"
                         />
                     </div>
 
@@ -41,6 +66,7 @@ export default function SignUp() {
                     <div>
                         <button
                             type="submit"
+                            onClick={handlesignup}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
                         >
                             Sign Up

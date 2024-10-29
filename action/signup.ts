@@ -14,7 +14,6 @@ export async function signup(name: string, email: string, password: string) {
             return { error: "User already exists" }; // Return an error message if user exists
         }
 
-
         const newUser = await client.user.create({
             data: {
                 name: name,
