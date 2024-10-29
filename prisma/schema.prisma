@@ -34,8 +34,8 @@ model Post {
 model Customapi {
   id            Int       @id @default(autoincrement())
   title         String
-  fields        Json      // Stores user-defined fields as JSON
-  sampleSize    Int       // Number of sample records to generate
+  fields        Json      
+  sampleSize    Int       
   createdById   Int
   createdBy     User      @relation(fields: [createdById], references: [id])
   createdAt     DateTime  @default(now())

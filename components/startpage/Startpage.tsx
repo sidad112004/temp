@@ -10,9 +10,9 @@ export default function () {
                     Access a range of pre-existing APIs, create custom endpoints, and integrate seamlessly.
                     Accelerate your development with easy-to-use, reliable API resources.
                 </p>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                <Link href="/start/allapi" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
                     Get Started for Free
-                </button>
+                </Link>
             </section>
 
             {/* Features Section */}
@@ -61,9 +61,9 @@ export default function () {
             <section id="contact" className="flex flex-col items-center text-center py-20 bg-gray-900">
                 <h3 className="text-4xl font-bold text-white mb-6">Ready to get started?</h3>
                 <p className="text-lg text-gray-400 mb-8">Join API Hub and start building with ease and flexibility.</p>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+                <Link href='/signup' className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
                     Sign Up Now
-                </button>
+                </Link>
             </section>
 
             {/* Footer */}

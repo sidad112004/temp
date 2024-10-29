@@ -9,7 +9,7 @@ export default function mainnavbar() {
       <nav>
         <ul className="flex space-x-6">
           <li>
-            <Link href="/signin">
+            <Link href="/dashboard/createapi">
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Create-Endpoint
               </span>
