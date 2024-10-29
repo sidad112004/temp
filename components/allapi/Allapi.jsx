@@ -1,20 +1,45 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import { SearchIcon, PlusCircleIcon, ExternalLinkIcon, XIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { allapi } from '@/action/allapi';
+import { searchapi } from '@/action/searchapi';
 
 const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [apiResults, setApiResults] = useState([
-    { name: 'Example API', description: 'A sample API for testing.', postedBy: 'User1', link: 'https://example.com' },
-    { name: 'Test API', description: 'Another test API example.', postedBy: 'User2', link: 'https://test.com' },
-  ]);
+  const [apiResults, setApiResults] = useState([]);
   const [selectedApi, setSelectedApi] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSearch = () => {
-    // Implement search functionality here
+  const handleSearch =async () => {
+
+     try {
+       const data=await searchapi(searchTerm)
+       if(data){
+         setApiResults(data)
+
+       }
+       else{
+         setApiResults([])
+       }
+     } catch (err) {
+        console.log(err);
+     }
+
   };
+
+  useEffect(() => {
+    
+    const fetchApiData = async () => {
+      try {
+        const data = await allapi(); 
+        setApiResults(data); 
+      } catch (error) {
+        console.error("Failed to fetch API data:", error);
+      }
+    };
+    fetchApiData();
+  }, []);
 
   const openModal = (api) => {
     setSelectedApi(api);
@@ -28,12 +53,10 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center p-8 min-h-screen bg-gray-900">
-      
-
       {/* Search Bar and Add-Api Button */}
       <div className="flex flex-row gap-4 items-center mb-8">
         <div className="w-full max-w-xl flex items-center rounded-full shadow-lg p-3 bg-gray-800">
-          <input
+          <input  
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -53,7 +76,6 @@ const Dashboard = () => {
           className="flex items-center px-4 py-2 bg-green-500 text-white font-semibold rounded-full shadow-md hover:bg-green-600 transition-all duration-300 ease-in-out transform hover:scale-105"
         >
           <PlusCircleIcon className="h-7 w-7 " />
-          
         </Link>
       </div>
 
