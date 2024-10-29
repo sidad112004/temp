@@ -1,7 +1,7 @@
-import Signup from "@/components/authpages/Signup";
+import SignUp from "@/components/authpages/Signup";
 
 export default function(){
     return(
-        <Signup/>
+        <SignUp/>
     )
 }
