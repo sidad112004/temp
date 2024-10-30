@@ -3,6 +3,7 @@ import { signup } from "@/action/signup";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import { signIn } from "next-auth/react";
 export default function SignUp() {
     const [name,setname]=useState('');
     const [email,setemail]=useState('');
@@ -76,9 +77,9 @@ export default function SignUp() {
                     {/* Already have an account */}
                     <div className="text-center text-sm">
                         Already have an account?{" "}
-                        <Link href="/signin" className="text-blue-500 hover:underline">
+                        <button onClick={()=>{signIn()}} className="text-blue-500 hover:underline">
                             Login
-                        </Link>
+                        </button>
                     </div>
                 </form>
             </div>

@@ -11,32 +11,33 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  admin     Boolean    @default(false)
-  email     String     @unique
-  name      String?
-  password  String
-  createdAt DateTime   @default(now())
-  posts     Post[]
+  id         Int         @id @default(autoincrement())
+  admin      Boolean     @default(false)
+  email      String      @unique
+  name       String?
+  password   String
+  createdAt  DateTime    @default(now())
+  posts      Post[]
   customapis Customapi[]
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  approved  Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  apiname     String
+  description String
+  link        String
+  approved    Boolean  @default(false)
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
-model Customapi {
-  id            Int       @id @default(autoincrement())
-  title         String
-  fields        Json      
-  sampleSize    Int       
-  createdById   Int
-  createdBy     User      @relation(fields: [createdById], references: [id])
-  createdAt     DateTime  @default(now())
+model Customapi {                                                                                 
+  id          Int      @id @default(autoincrement())
+  title       String
+  fields      Json
+  sampleSize  Int
+  createdById Int
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
 }
