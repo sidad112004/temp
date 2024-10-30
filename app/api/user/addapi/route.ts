@@ -12,13 +12,15 @@ export async function POST(req: Request) {
         }
         
         const authorId = Number(login.id);
+        console.log(login);
+        console.log(authorId);
         const body = await req.json();
         const { apiName, description, link } = body;
 
         if (!apiName || !description || !link) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
-
+        console.log("yes")
         const data = await client.post.create({
             data: {
                 apiName,

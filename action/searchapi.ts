@@ -4,9 +4,13 @@ import client from "../db";
 
 export async function searchapi(searchTerm: string) {
     try {
+        if(searchTerm===''){
+            const data=await client.post.findMany({});
+            return data;
+        }
         const data = await client.post.findMany({
             where: {
-                title: searchTerm
+                apiName: searchTerm
             }
         });
         return data;

@@ -124,13 +124,13 @@ const Dashboard = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-gray-800 rounded-lg shadow-xl p-8 max-w-lg w-full">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-semibold text-white">{selectedApi.name}</h2>
+              <h2 className="text-2xl font-semibold text-white">{selectedApi.apiName}</h2>
               <button onClick={closeModal} className="text-white hover:text-red-500 transition">
                 <XIcon className="h-6 w-6" />
               </button>
             </div>
-            <p className="text-gray-300 mb-4">{selectedApi.description}</p>
-            <p className="text-gray-400 mb-4">Posted by: <span className="font-medium">{selectedApi.postedBy}</span></p>
+            <p className="text-gray-300 mb-4">description  :  {selectedApi.description}</p>
+            <p className="text-gray-400 mb-4">Posted by: <span className="font-medium">{selectedApi.id}</span></p>
             <a
               href={selectedApi.link}
               target="_blank"

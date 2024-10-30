@@ -68,14 +68,14 @@ export default function Login() {
           </div>
 
           {/* Google Login Button */}
-          <div>
+          {/* <div>
             <button
               onClick={handleWithGoogle}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
             >
               Login with Google
             </button>
-          </div>
+          </div> */}
 
           {/* Sign-Up Redirect */}
           <div className="text-center text-sm">

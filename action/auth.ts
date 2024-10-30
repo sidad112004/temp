@@ -2,6 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import client from "@/db";
     
 import GoogleProvider from "next-auth/providers/google";
+import { match } from "assert";
 
 
 export const NEXT_AUTH={
@@ -41,26 +42,27 @@ export const NEXT_AUTH={
         
         },
       }),
-      GoogleProvider({
-        clientId: process.env.GOOGLE_ID || "",
-        clientSecret: process.env.GOOGLE_SECRET || ""
-      })
+      // GoogleProvider({
+      //   clientId: process.env.GOOGLE_ID || "",
+      //   clientSecret: process.env.GOOGLE_SECRET || ""
+      // })
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async signIn({ user, account, profile }:any ) {
-          if (account.provider === "google") {
+        // async signIn({ user, account, profile,token }:any ) {
+        //   if (account.provider === "google") {
             
-            const dbUser = await client.user.findFirst({
-              where: { email: user.email },
-            });
-      
-            if (!dbUser) {
-              return false; 
-            }
-          }
-          return true; 
-        },
+        //     const dbUser = await client.user.findFirst({
+        //       where: { email: user.email },
+        //     });
+            
+
+        //     if (!dbUser) {
+        //       return false; 
+        //     }
+        //   }
+        //   return true; 
+        // },
         session: ({ session, token }:any) => {
           if (session && session.user) {
             session.id = token.sub;
@@ -68,6 +70,7 @@ export const NEXT_AUTH={
           return session;
         },
       },
+      
       
   }
 
