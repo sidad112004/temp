@@ -23,7 +23,7 @@ model User {
 
 model Post {
   id          Int      @id @default(autoincrement())
-  apiname     String
+  apiName     String
   description String
   link        String
   approved    Boolean  @default(false)

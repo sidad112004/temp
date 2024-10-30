@@ -35,6 +35,7 @@ const Dashboard = () => {
       try {
         const data = await allapi();
         setApiResults(data);
+        console.log(data)
       } catch (error) {
         console.error("Failed to fetch API data:", error);
       }
@@ -99,8 +100,8 @@ const Dashboard = () => {
               className="p-6 rounded-lg shadow-xl bg-gray-800 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 cursor-pointer"
               onClick={() => openModal(api)}
             >
-              <h2 className="text-xl font-semibold text-white mb-2">{api.name}</h2>
-              <p className="text-sm text-gray-400 mb-4">Posted by: <span className="font-medium">{api.postedBy}</span></p>
+              <h2 className="text-xl font-semibold text-white mb-2">{api.apiName}</h2>
+              <p className="text-sm text-gray-400 mb-4">sender id <span className="font-medium">{api.id}</span></p>
               <a
                 href={api.link}
                 target="_blank"

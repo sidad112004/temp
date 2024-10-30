@@ -17,14 +17,15 @@ export default function AddApiForm() {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
 
-    const handlesubmit = async () => {
-
+    const handlesubmit = async (e: FormEvent) => {
+        e.preventDefault();
         try {
+            
             const response = await axios.post('/api/user/addapi', {
                 apiName,
                 description,
-                link
-            });
+                link,
+            })
 
             console.log(response.data);
             setSuccessMessage(response.data.message);

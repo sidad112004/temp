@@ -21,7 +21,7 @@ export async function signup(name: string, email: string, password: string) {
                 password: password
             }
         });
-
+  
         return newUser;
     } catch (error) {
         console.error("Error in signup:", error);
