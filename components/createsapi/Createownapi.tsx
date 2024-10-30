@@ -7,7 +7,7 @@ import axios from 'axios';
 const GeneratePage: React.FC = () => {
   const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }]);
   const [count, setCount] = useState<number>(5);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [downloadUrl, setDownloadUrl] = useState('');
 
   const addField = () => {
     setFields([...fields, { name: '', type: 'string' }]);
