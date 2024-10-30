@@ -1,3 +1,5 @@
+"use client"
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -9,14 +11,14 @@ export default function Navbar() {
       <nav>
         <ul className="flex space-x-6">
           <li>
-            <Link href="/signin">
+            <button onClick={()=>signIn()}>
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Login
               </span>
-            </Link>
+            </button>
           </li>
           <li>
-            <Link href="/signup">
+            <Link href="/signup" >
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Signup
               </span>

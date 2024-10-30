@@ -1,9 +1,17 @@
+import checklogin from "@/action/checklogin/checklogin";
 import AddApi from "@/components/addapipage/Addapi";
+import { redirect } from "next/navigation";
 
-export default function(){
-    return(
+export default async function AddApiPage() {
+    const isLoggedIn = await checklogin();
+
+    if (!isLoggedIn) {
+        redirect("/start"); 
+    }
+
+    return (
         <>
-        <AddApi/>
+            <AddApi />
         </>
     );
 }

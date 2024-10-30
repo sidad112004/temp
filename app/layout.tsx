@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-
 import "./globals.css";
-import { colors } from "@mui/material";
-
+import Provider from "@/app/Provider"; // Capitalized component name
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body>
-        {children}
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   );
