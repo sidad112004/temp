@@ -1,12 +1,13 @@
 import checklogin from "@/action/checklogin/checklogin";
 import AddApi from "@/components/addapipage/Addapi";
+import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 export default async function AddApiPage() {
     const isLoggedIn = await checklogin();
 
     if (!isLoggedIn) {
-        redirect("/start"); 
+        redirect('/start')
     }
 
     return (
