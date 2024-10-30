@@ -12,8 +12,7 @@ export async function POST(req: Request) {
         }
         
         const authorId = Number(login.id);
-        console.log(login);
-        console.log(authorId);
+        
         const body = await req.json();
         const { apiName, description, link } = body;
 
