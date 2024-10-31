@@ -8,7 +8,7 @@ export  async function GET(request: Request) {
         if(!login){
             redirect('/start')
         }
-        console.log(login.id);
+        
         const authorId = Number(login.id);
         const data = await client.customapi.findMany({
             where:{

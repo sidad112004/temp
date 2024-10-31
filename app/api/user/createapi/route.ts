@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     
   try {
-    const { fields, count } = await request.json();
+    const { fields, count,title } = await request.json();
     const generatedData = [];
     for (let i = 0; i < count; i++) {
       const entry: Record<string, any> = {};
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     const createdData = await client.customapi.create({
       data: {
-        title: 'Generated Data',
+        title: title,
         fields: generatedData,  
         sampleSize: count,
         createdById,

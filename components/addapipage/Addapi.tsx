@@ -2,6 +2,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 type ApiFormData = {
     apiName: string;
@@ -29,6 +30,7 @@ export default function AddApiForm() {
 
             console.log(response.data);
             setSuccessMessage(response.data.message);
+            toast.success("Api is Added ")
             setErrorMessage('');
             setApiName('');
             setDescription('');

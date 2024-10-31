@@ -1,5 +1,6 @@
 "use server";
 
+import { error } from "console";
 import client from "../db";
 
 export async function signup(name: string, email: string, password: string) {
@@ -11,7 +12,7 @@ export async function signup(name: string, email: string, password: string) {
             }
         });
         if (user) {
-            return { error: "User already exists" }; // Return an error message if user exists
+           return new Error("user is alredy exits")
         }
 
         const newUser = await client.user.create({
@@ -25,6 +26,6 @@ export async function signup(name: string, email: string, password: string) {
         return newUser;
     } catch (error) {
         console.error("Error in signup:", error);
-        return { error: "An error occurred during signup" };
+        return error;
     }
 }

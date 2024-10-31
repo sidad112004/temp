@@ -3,14 +3,16 @@ import { ExternalLinkIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function () {
+
+export default function MyApiComponent({ id }: any) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
+    
+    const acutalid=Number(id.id);
     const handleApi = async () => {
         try {
-            const res = await axios.get('/api/user/myapi');
+            const res = await axios.get(`/api/user/myapi`);
             const actualData = res.data.data;
             setData(actualData);
         } catch (err) {
@@ -26,14 +28,11 @@ export default function () {
     }, []);
 
     if (loading) {
-        return (
-            <p className="text-center text-white">Loading...</p>
-        );
+        return <p className="text-center text-white">Loading...</p>;
     }
+
     if (error) {
-        return (
-            <p className="text-center text-red-500">{error}</p>
-        );
+        return <p className="text-center text-red-500">{error}</p>;
     }
 
     return (
@@ -47,6 +46,15 @@ export default function () {
                     <p className="text-sm text-gray-400 mb-4">
                         ID: <span className="font-medium">{temp['id']}</span>
                     </p>
+                    <a 
+                        href={`http://localhost:3000/api/user/${acutalid}/${temp['id']}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center text-indigo-400 hover:text-indigo-600 font-semibold"
+                    >
+                        <ExternalLinkIcon className="h-5 w-5 mr-1" />
+                        Visit API Website
+                    </a>
                 </div>
             ))}
         </div>

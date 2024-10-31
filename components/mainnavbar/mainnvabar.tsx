@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { toast } from 'sonner';
 
 export default function MainNavbar(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -43,7 +44,10 @@ export default function MainNavbar(): JSX.Element {
             </Link>
           </li>
           <li>
-            <button onClick={() => signOut()}>
+            <button onClick={() =>{
+              toast.success("SignOut Successfull ")
+               signOut()
+               }}>
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Logout
               </span>

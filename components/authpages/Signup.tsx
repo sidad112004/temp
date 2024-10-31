@@ -1,6 +1,7 @@
 "use client"   
 import { signup } from "@/action/signup";
 import Link from "next/link";
+import { toast, Toaster } from "sonner";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { signIn } from "next-auth/react";
@@ -9,13 +10,22 @@ export default function SignUp() {
     const [email,setemail]=useState('');
     const [password,setpassword]=useState('');
     const Route=useRouter();
-    const handlesignup=()=>{
+    const handlesignup=async(e:any)=>{
+        e.preventDefault();
         try {
+           if(name==='' || email ==='' || password===''){
+            toast.error("fill all the fields");
+            return;
+           }
+           const data=await signup(name,email,password);
            
-           const data= signup(name,email,password);
-                 Route.push('/start')
+           console.log(data);
+           console.log(data) 
+           toast.success("Signup successfull ")
+            Route.push('/start')
 
-        } catch (error) {
+        } catch (error:any) {
+            toast.error(error)
             console.log(error)
         }
     }

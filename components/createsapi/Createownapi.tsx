@@ -4,22 +4,13 @@ import { useState, useEffect } from 'react';
 import { Field, FieldType, GenerateDataResponse } from '@/utilite/type';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
+import { toast } from 'sonner';
 
 export default function GenerateDataComponent() {
   const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }]);
   const [count, setCount] = useState<number>(5);
-  const [downloadUrl, setDownloadUrl] = useState('');
-  const [session, setSession] = useState<any | null>(null);
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const sessionData = await getSession();
-      setSession(sessionData);
-      console.log(sessionData);
-    };
-    fetchSession();
-  }, []);
-
+  const [title,settitle]=useState('');
+ 
   const addField = () => {
     setFields([...fields, { name: '', type: 'string' }]);
   };
@@ -31,15 +22,28 @@ export default function GenerateDataComponent() {
   };
 
   const generateData = async () => {
-    const response = await axios.post('/api/user/createapi', { fields, count });
-    console.log(response.data);
-    // Set download URL or handle response data here
+    if(title===""){
+      toast.error("Give the name");
+      return;
+    }
+    const response = await axios.post('/api/user/createapi', { fields, count, title });
+    toast.success("Api is created check the page your api")
+  
   };
 
   return (
     <div className="flex flex-col items-center p-8">
       <h1 className="text-3xl font-semibold mb-6">Generate Sample Data</h1>
-      
+      <div className="mb-4 w-full max-w-md">
+        <label className="block font-medium mb-2">Title</label>
+        <input
+          type="text"
+          required
+          value={title}
+          onChange={(e) => settitle(e.target.value)}
+          className="bg-gray-800 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
       <div className="mb-4 w-full max-w-md">
         <label className="block font-medium mb-2">Number of entries:</label>
         <input
@@ -49,11 +53,7 @@ export default function GenerateDataComponent() {
           className="bg-gray-800 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      {session && (
-        <a href={`http://localhost:3000/api/user/${session.id}`} className="text-blue-600 underline">
-          View User API
-        </a>
-      )}
+      
 
       <h2 className="text-2xl font-semibold mb-4">Fields</h2>
 
@@ -95,17 +95,6 @@ export default function GenerateDataComponent() {
         </button>
       </div>
 
-      {downloadUrl && (
-        <div className="mt-6">
-          <a
-            href={downloadUrl}
-            download="generatedData.json"
-            className="text-blue-600 underline font-medium hover:text-blue-800"
-          >
-            Download JSON File
-          </a>
-        </div>
-      )}
     </div>
   );
 }
