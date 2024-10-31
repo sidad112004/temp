@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Field, FieldType, GenerateDataResponse } from '@/utilite/type';
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 
-const GeneratePage: React.FC = () => {
+export default function GenerateDataComponent() {
   const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }]);
   const [count, setCount] = useState<number>(5);
   const [downloadUrl, setDownloadUrl] = useState('');
+  const [session, setSession] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const sessionData = await getSession();
+      setSession(sessionData);
+      console.log(sessionData);
+    };
+    fetchSession();
+  }, []);
 
   const addField = () => {
     setFields([...fields, { name: '', type: 'string' }]);
@@ -20,9 +31,9 @@ const GeneratePage: React.FC = () => {
   };
 
   const generateData = async () => {
-    const respoance=await axios.post('/api/user/createapi', { fields, count });
-    console.log(respoance.data);
-    
+    const response = await axios.post('/api/user/createapi', { fields, count });
+    console.log(response.data);
+    // Set download URL or handle response data here
   };
 
   return (
@@ -38,6 +49,11 @@ const GeneratePage: React.FC = () => {
           className="bg-gray-800 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+      {session && (
+        <a href={`http://localhost:3000/api/user/${session.id}`} className="text-blue-600 underline">
+          View User API
+        </a>
+      )}
 
       <h2 className="text-2xl font-semibold mb-4">Fields</h2>
 
@@ -92,6 +108,4 @@ const GeneratePage: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default GeneratePage;
+}
