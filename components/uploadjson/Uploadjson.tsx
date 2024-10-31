@@ -14,7 +14,7 @@ export default function () {
                 return;
             }
             const res=await axios.post('/api/user/jsonupload',{title,json});
-            console.log(res);
+            toast.success("json file is uploaded check Your api section")
         }
         catch(err){
             console.log(err);
@@ -33,7 +33,7 @@ export default function () {
                     placeholder="Title" 
                 />
                 
-                <textarea 
+                <input 
                     value={json}
                     onChange={(e)=>{setjson(e.target.value)}}
                     className="w-3/4 max-w-lg h-40 p-4 text-xl bg-gray-800 border  rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out" 

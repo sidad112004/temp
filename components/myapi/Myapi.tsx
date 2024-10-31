@@ -47,7 +47,7 @@ export default function MyApiComponent({ id }: any) {
                         ID: <span className="font-medium">{temp['id']}</span>
                     </p>
                     <a 
-                        href={`http://localhost:3000/api/user/${acutalid}/${temp['id']}`} 
+                        href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${acutalid}/${temp['id']}`} 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="flex items-center text-indigo-400 hover:text-indigo-600 font-semibold"

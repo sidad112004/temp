@@ -1,29 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import checklogin from '@/action/checklogin/checklogin';
-import { redirect } from 'next/navigation';
 import client from '@/db/index';
-export async function POST(req:NextRequest){
-    const login = await checklogin();
 
-    if(!login){
-        redirect('/start')
+export async function POST(req: NextRequest) {
+    const login: any = await checklogin();
+
+    if (!login) {
+        return NextResponse.redirect('/start');
     }
-    
+
     const createdById = Number(login.id);
 
-   try {
-     const { title,json } = await req.json();
-     const newdata=client.customapi.create({
-        data: {
-            title: title,
-            fields: json,  
-            sampleSize: 25,
-            createdById,
-          },
-     })
-     return NextResponse.json({ success: true, data: newdata });
+    try {
+        const { title, json } = await req.json();
+
+        const jsonData = typeof json === 'string' ? JSON.parse(json) : json;
+
+        if (!Array.isArray(jsonData) || !jsonData.every(item => typeof item === 'object')) {
+            return NextResponse.json({ success: false, error: 'Invalid JSON format. Expected an array of objects.' });
+        }
+
+        const newdata = await client.customapi.create({
+            data: {
+                title,
+                fields: jsonData, 
+                sampleSize: jsonData.length,
+                createdById,
+            },
+        });
+
+        return NextResponse.json({ success: true, data: newdata });
     } catch (error) {
-      console.log(error);
-      console.log("error in upload jsonfile folder")
-   }
+        console.error("Error in uploading JSON data:", error);
+        return NextResponse.json({ success: false, error: 'Failed to upload JSON data.' });
+    }
 }
