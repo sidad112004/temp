@@ -1,3 +1,4 @@
+"use server";
 import checklogin from "@/action/checklogin/checklogin"
 import AddApi from "@/components/addapipage/Addapi"
 import { redirect } from "next/navigation"

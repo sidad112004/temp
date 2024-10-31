@@ -14,7 +14,7 @@ const JsonUploader: React.FC = () => {
                 toast.error("Enter all the fields");
                 return;
             }
-            const res = await axios.post('/api/user/jsonupload', { title, json });
+           await axios.post('/api/user/jsonupload', { title, json });
             toast.success("JSON file is uploaded. Check your API section");
         } catch (err) {
             console.error(err);

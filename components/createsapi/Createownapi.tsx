@@ -34,7 +34,7 @@ export default function GenerateDataComponent() {
 
     setIsLoading(true);
     try {
-      const response = await axios.post('/api/user/createapi', { fields, count, title });
+      await axios.post('/api/user/createapi', { fields, count, title });
       toast.success("API created successfully! Check the page for your API.");
     } catch (error) {
       toast.error("An error occurred while generating data. Please try again.");

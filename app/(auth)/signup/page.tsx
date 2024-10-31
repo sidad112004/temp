@@ -1,8 +1,9 @@
+"use server";
 import SignUp from "@/components/authpages/Signup"
 import checklogin from "@/action/checklogin/checklogin"
 import { redirect } from "next/navigation"
 
-export default async function() {
+export  async function SignUppage() {
     const isLoggedIn = await checklogin()
 
     if (isLoggedIn) {

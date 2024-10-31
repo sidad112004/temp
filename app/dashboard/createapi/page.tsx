@@ -1,3 +1,4 @@
+"use server";
 import Createownapi from "@/components/createsapi/Createownapi"
 import { redirect } from "next/navigation"
 import checklogin from "@/action/checklogin/checklogin"

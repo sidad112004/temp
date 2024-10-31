@@ -1,3 +1,4 @@
+"use server";
 import { redirect } from "next/navigation"
 import checklogin from "@/action/checklogin/checklogin"
 import Myapi from "@/components/myapi/Myapi"
@@ -11,7 +12,7 @@ export default async function Home() {
 
     return (
         <>
-            <Myapi id={isLoggedIn.id} />
+            <Myapi  />
         </>
     )
 }

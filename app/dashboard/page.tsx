@@ -1,3 +1,4 @@
+"use server";
 import Allapi from "@/components/allapi/Allapi";
 import { redirect } from "next/navigation";
 import checklogin from "@/action/checklogin/checklogin";

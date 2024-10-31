@@ -1,17 +1,12 @@
 "use client"
 import { useState, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'sonner'
 
-type ApiFormData = {
-    apiName: string
-    description: string
-    link: string
-}
+
 
 export default function AddApiForm() {
-    const router = useRouter()
+   
     const [apiName, setApiName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [link, setLink] = useState<string>('')

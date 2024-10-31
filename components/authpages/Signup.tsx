@@ -1,6 +1,6 @@
 "use client";   
 import { signup } from "@/action/signup";
-import Link from "next/link";
+
 import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
@@ -13,7 +13,7 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const handleSignup = async (e:any) => {
+    const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
         if (name === '' || email === '' || password === '') {
             toast.error("Fill all the fields");

@@ -3,7 +3,7 @@ import checklogin from '@/action/checklogin/checklogin'
 import client from '@/db/index'
 
 export async function POST(req: NextRequest) {
-    const login: any = await checklogin()
+    const login = await checklogin()
 
     if (!login) {
         return NextResponse.redirect('/start')

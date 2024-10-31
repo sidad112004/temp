@@ -16,10 +16,10 @@ export async function POST(request: NextRequest) {
 
   try {
     const { fields, count, title } = await request.json()
-    const generatedData = []
+    const generatedData: Array<Record<string, string | number | boolean | null>> = []
 
     for (let i = 0; i < count; i++) {
-      const entry: Record<string, any> = {}
+      const entry: Record<string, string | number | boolean | null> = {}
       fields.forEach((field: Field) => {
         switch (field.type) {
           case 'string':

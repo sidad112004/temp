@@ -17,16 +17,16 @@ export default function Login() {
     console.log(res); // Log response for debugging
   }
 
-  function handleWithGoogle() {
-    signIn("google", { redirect: false }) // prevent auto-redirect to handle potential errors
-      .then((res) => {
-        if (res?.error) {
-          console.error("Google login error:", res.error);
-        } else {
-          console.log("Google login successful:", res);
-        }
-      });
-  }
+  // function handleWithGoogle() {
+  //   signIn("google", { redirect: false }) // prevent auto-redirect to handle potential errors
+  //     .then((res) => {
+  //       if (res?.error) {
+  //         console.error("Google login error:", res.error);
+  //       } else {
+  //         console.log("Google login successful:", res);
+  //       }
+  //     });
+  // }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
@@ -79,7 +79,7 @@ export default function Login() {
 
           {/* Sign-Up Redirect */}
           <div className="text-center text-sm">
-            Don't have an account?{" "}
+            Dont have an account?{" "}
             <Link href="/signup" className="text-blue-500 hover:underline">
               Sign Up
             </Link>

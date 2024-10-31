@@ -3,21 +3,19 @@ import { ExternalLinkIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-interface MyApiComponentProps {
-  id: { id: number };
-}
+
 
 interface ApiData {
   id: number;
   title: string;
 }
 
-export default function MyApiComponent({ id }: MyApiComponentProps): JSX.Element {
+export default function MyApiComponent() {
   const [data, setData] = useState<ApiData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const actualId = Number(id.id);
+
 
   const handleApi = async () => {
     try {

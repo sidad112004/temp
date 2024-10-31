@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { toast } from 'sonner';
 
-const NavLink = ({ href, children }:any) => (
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <li>
     <Link href={href}>
       <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">

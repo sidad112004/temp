@@ -1,9 +1,9 @@
 import client from "@/db/index"
 import checklogin from "@/action/checklogin/checklogin"
-import { redirect } from "next/navigation"
+
 import { NextResponse } from "next/server"
 
-export async function GET(request: Request) {
+export async function GET() {
     const login = await checklogin()
 
     if (!login) {
