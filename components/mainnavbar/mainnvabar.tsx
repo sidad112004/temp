@@ -36,6 +36,13 @@ export default function MainNavbar(): JSX.Element {
             </Link>
           </li>
           <li>
+            <Link href="/dashboard/uploadjsondata">
+              <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
+              Upload-json
+              </span>
+            </Link>
+          </li>
+          <li>
             <Link href="/dashboard/createapi">
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 
@@ -45,7 +52,7 @@ export default function MainNavbar(): JSX.Element {
           </li>
           <li>
             <button onClick={() =>{
-              toast.success("SignOut Successfull ")
+              toast.success("SignOut Successfull")
                signOut()
                }}>
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">

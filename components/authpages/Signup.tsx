@@ -5,6 +5,7 @@ import { toast, Toaster } from "sonner";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { signIn } from "next-auth/react";
+import { da } from "@faker-js/faker";
 export default function SignUp() {
     const [name,setname]=useState('');
     const [email,setemail]=useState('');
@@ -18,9 +19,11 @@ export default function SignUp() {
             return;
            }
            const data=await signup(name,email,password);
-           
+           if(data===null){
+            toast.error("User already exist")
+            return;
+           }
            console.log(data);
-           console.log(data) 
            toast.success("Signup successfull ")
             Route.push('/start')
 

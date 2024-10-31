@@ -12,7 +12,7 @@ export async function signup(name: string, email: string, password: string) {
             }
         });
         if (user) {
-           return new Error("user is alredy exits")
+           return null
         }
 
         const newUser = await client.user.create({

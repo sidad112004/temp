@@ -101,7 +101,7 @@ const Dashboard = () => {
               onClick={() => openModal(api)}
             >
               <h2 className="text-xl font-semibold text-white mb-2">{api.apiName}</h2>
-              <p className="text-sm text-gray-400 mb-4">sender id <span className="font-medium">{api.id}</span></p>
+              <p className="text-sm text-gray-400 mb-4">ID : <span className="font-medium">{api.id}</span></p>
               <a
                 href={api.link}
                 target="_blank"
