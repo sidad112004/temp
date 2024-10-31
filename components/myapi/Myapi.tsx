@@ -56,7 +56,7 @@ export default function MyApiComponent({ id }: MyApiComponentProps): JSX.Element
             ID: <span className="font-medium">{id}</span>
           </p>
           <a 
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${actualId}/${id}`} 
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="flex items-center text-indigo-400 hover:text-indigo-600 font-semibold"
