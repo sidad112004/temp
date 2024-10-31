@@ -1,17 +1,17 @@
-import { redirect } from "next/navigation";
-import checklogin from "@/action/checklogin/checklogin";
-import Myapi from "@/components/myapi/Myapi";
+import { redirect } from "next/navigation"
+import checklogin from "@/action/checklogin/checklogin"
+import Myapi from "@/components/myapi/Myapi"
 
 export default async function Home() {
-    const isLoggedIn = await checklogin();
+    const isLoggedIn = await checklogin()
 
     if (!isLoggedIn) {
-        redirect("/start");
-        return null; 
+        redirect("/start")
     }
+
     return (
         <>
-            <Myapi id={isLoggedIn} />
+            <Myapi id={isLoggedIn.id} />
         </>
-    );
+    )
 }

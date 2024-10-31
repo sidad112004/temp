@@ -1,21 +1,27 @@
-import client from "@/db/index";
-import checklogin from "@/action/checklogin/checklogin";
-import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
-export  async function GET(request: Request) {
-    const login = await checklogin();
+import client from "@/db/index"
+import checklogin from "@/action/checklogin/checklogin"
+import { redirect } from "next/navigation"
+import { NextResponse } from "next/server"
 
-        if(!login){
-            redirect('/start')
-        }
-        
-        const authorId = Number(login.id);
+export async function GET(request: Request) {
+    const login = await checklogin()
+
+    if (!login) {
+        return NextResponse.redirect('/start')
+    }
+    
+    const authorId = Number(login.id)
+
+    try {
         const data = await client.customapi.findMany({
-            where:{
-                createdById:authorId
+            where: {
+                createdById: authorId
             }
+        })
 
-        });
-        
-        return NextResponse.json({data})
+        return NextResponse.json({ data })
+    } catch (error) {
+        console.error("Error fetching data:", error)
+        return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 })
+    }
 }
