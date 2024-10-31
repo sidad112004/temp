@@ -1,66 +1,60 @@
-"use client";
-import React, { useEffect, useState } from 'react';
-import { SearchIcon, PlusCircleIcon, ExternalLinkIcon, XIcon } from '@heroicons/react/solid';
-import { allapi } from '@/action/allapi';
-import { searchapi } from '@/action/searchapi';
-import { getSession, signIn } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+"use client"
+import React, { useEffect, useState } from 'react'
+import { SearchIcon, PlusCircleIcon, ExternalLinkIcon, XIcon } from '@heroicons/react/solid'
+import { allapi } from '@/action/allapi'
+import { searchapi } from '@/action/searchapi'
+import { getSession, signIn } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 const Dashboard = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [apiResults, setApiResults] = useState([]);
-  const [selectedApi, setSelectedApi] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [apiResults, setApiResults] = useState([])
+  const [selectedApi, setSelectedApi] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleSearch = async () => {
-
     try {
       const data = await searchapi(searchTerm)
       if (data) {
         setApiResults(data)
-
-      }
-      else {
+      } else {
         setApiResults([])
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-
-  };
+  }
 
   useEffect(() => {
-
     const fetchApiData = async () => {
       try {
-        const data = await allapi();
-        setApiResults(data);
+        const data = await allapi()
+        setApiResults(data)
         console.log(data)
       } catch (error) {
-        console.error("Failed to fetch API data:", error);
+        console.error("Failed to fetch API data:", error)
       }
-    };
-    fetchApiData();
-  }, []);
+    }
+    fetchApiData()
+  }, [])
 
   const openModal = (api) => {
-    setSelectedApi(api);
-    setIsModalOpen(true);
-  };
+    setSelectedApi(api)
+    setIsModalOpen(true)
+  }
 
   const closeModal = () => {
-    setSelectedApi(null);
-    setIsModalOpen(false);
-  };
+    setSelectedApi(null)
+    setIsModalOpen(false)
+  }
 
-  const handleaddapi = async() => {
-           const data=await getSession();
-           if(data===null){
-            signIn();
-           }
-           else{
-            redirect('/dashboard/addapi')
-           }
+  const handleaddapi = async () => {
+    const data = await getSession()
+    if (data === null) {
+      signIn()
+    } else {
+      redirect('/dashboard/addapi')
+    }
   }
 
   return (
@@ -87,7 +81,7 @@ const Dashboard = () => {
           onClick={handleaddapi}
           className="flex items-center px-4 py-2 bg-green-500 text-white font-semibold rounded-full shadow-md hover:bg-green-600 transition-all duration-300 ease-in-out transform hover:scale-105"
         >
-          <PlusCircleIcon className="h-7 w-7 " />
+          <PlusCircleIcon className="h-7 w-7" />
         </button>
       </div>
 
@@ -129,7 +123,7 @@ const Dashboard = () => {
                 <XIcon className="h-6 w-6" />
               </button>
             </div>
-            <p className="text-gray-300 mb-4">description  :  {selectedApi.description}</p>
+            <p className="text-gray-300 mb-4">Description: {selectedApi.description}</p>
             <p className="text-gray-400 mb-4">Posted by: <span className="font-medium">{selectedApi.id}</span></p>
             <a
               href={selectedApi.link}
@@ -144,7 +138,7 @@ const Dashboard = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

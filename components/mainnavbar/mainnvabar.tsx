@@ -1,9 +1,19 @@
-"use client"
+"use client";
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { toast } from 'sonner';
+
+const NavLink = ({ href, children }:any) => (
+  <li>
+    <Link href={href}>
+      <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
+        {children}
+      </span>
+    </Link>
+  </li>
+);
 
 export default function MainNavbar(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,7 +27,11 @@ export default function MainNavbar(): JSX.Element {
       </h1>
 
       {/* Hamburger menu for mobile mode */}
-      <button className="md:hidden text-white" onClick={toggleDropdown}>
+      <button 
+        className="md:hidden text-white" 
+        onClick={toggleDropdown} 
+        aria-label="Toggle Navigation"
+      >
         {isOpen ? (
           <XIcon className="h-6 w-6" />
         ) : (
@@ -26,35 +40,20 @@ export default function MainNavbar(): JSX.Element {
       </button>
 
       {/* Navigation links for desktop and mobile */}
-      <nav className={`${isOpen ? 'block' : 'hidden'} md:block`}>
+      <nav className={`${isOpen ? 'block' : 'hidden'} md:block transition-all duration-300 ease-in-out`}>
         <ul className="md:flex space-x-6">
+          <NavLink href="/dashboard/allcustomapi">Your-Api</NavLink>
+          <NavLink href="/dashboard/uploadjsondata">Upload-json</NavLink>
+          <NavLink href="/dashboard/createapi">Create-Endpoint</NavLink>
           <li>
-            <Link href="/dashboard/allcustomapi">
-              <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
-              Your-Api
-              </span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/uploadjsondata">
-              <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
-              Upload-json
-              </span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/createapi">
-              <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
-                
-                Create-Endpoint
-              </span>
-            </Link>
-          </li>
-          <li>
-            <button onClick={() =>{
-              toast.success("SignOut Successfull")
-               signOut()
-               }}>
+            <button 
+              onClick={() => {
+                toast.success("Sign Out Successful");
+                signOut();
+              }} 
+              aria-label="Logout"
+              className="inline-block"
+            >
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Logout
               </span>

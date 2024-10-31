@@ -1,5 +1,6 @@
 import Link from "next/link";
-export default function () {
+
+const HomePage: React.FC = () => {
     return (
         <div className="min-h-screen bg-background text-foreground">
         
@@ -73,3 +74,5 @@ export default function () {
         </div>
     );
 };
+
+export default HomePage;

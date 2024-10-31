@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Field, FieldType, GenerateDataResponse } from '@/utilite/type';
+import { useState } from 'react';
+import { Field, FieldType } from '@/utilite/type';
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
 import { toast } from 'sonner';
 
 export default function GenerateDataComponent() {
   const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }]);
   const [count, setCount] = useState<number>(5);
-  const [title,settitle]=useState('');
- 
+  const [title, setTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const addField = () => {
     setFields([...fields, { name: '', type: 'string' }]);
   };
@@ -22,13 +22,26 @@ export default function GenerateDataComponent() {
   };
 
   const generateData = async () => {
-    if(title===""){
-      toast.error("Give the name");
+    if (title === "") {
+      toast.error("Please provide a title");
       return;
     }
-    const response = await axios.post('/api/user/createapi', { fields, count, title });
-    toast.success("Api is created check the page your api")
-  
+
+    if (fields.some(field => field.name.trim() === "")) {
+      toast.error("Field names cannot be empty");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post('/api/user/createapi', { fields, count, title });
+      toast.success("API created successfully! Check the page for your API.");
+    } catch (error) {
+      toast.error("An error occurred while generating data. Please try again.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,20 +53,21 @@ export default function GenerateDataComponent() {
           type="text"
           required
           value={title}
-          onChange={(e) => settitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           className="bg-gray-800 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="API Title"
         />
       </div>
       <div className="mb-4 w-full max-w-md">
-        <label className="block font-medium mb-2">Number of entries:</label>
+        <label className="block font-medium mb-2">Number of Entries:</label>
         <input
           type="number"
           value={count}
           onChange={(e) => setCount(Number(e.target.value))}
           className="bg-gray-800 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Number of Entries"
         />
       </div>
-      
 
       <h2 className="text-2xl font-semibold mb-4">Fields</h2>
 
@@ -66,11 +80,13 @@ export default function GenerateDataComponent() {
               value={field.name}
               onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
               className="bg-gray-800 flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={`Field Name ${index + 1}`}
             />
             <select
               value={field.type}
               onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
               className="bg-gray-800 flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={`Field Type ${index + 1}`}
             >
               <option value="string">String</option>
               <option value="number">Number</option>
@@ -89,12 +105,12 @@ export default function GenerateDataComponent() {
         </button>
         <button
           onClick={generateData}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+          disabled={isLoading}
+          className={`px-4 py-2 ${isLoading ? "bg-gray-500" : "bg-green-600 hover:bg-green-700"} text-white rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-green-500`}
         >
-          Generate Data
+          {isLoading ? "Generating..." : "Generate Data"}
         </button>
       </div>
-
     </div>
   );
 }

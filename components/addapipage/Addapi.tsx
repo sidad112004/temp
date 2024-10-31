@@ -1,45 +1,43 @@
-"use client";
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { toast } from 'sonner';
+"use client"
+import { useState, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { toast } from 'sonner'
 
 type ApiFormData = {
-    apiName: string;
-    description: string;
-    link: string;
-};
+    apiName: string
+    description: string
+    link: string
+}
 
 export default function AddApiForm() {
-    const router = useRouter();
-    const [apiName, setApiName] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [link, setLink] = useState<string>('');
-    const [errorMessage, setErrorMessage] = useState<string>('');
-    const [successMessage, setSuccessMessage] = useState<string>('');
+    const router = useRouter()
+    const [apiName, setApiName] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [link, setLink] = useState<string>('')
+    const [errorMessage, setErrorMessage] = useState<string>('')
+    const [successMessage, setSuccessMessage] = useState<string>('')
 
     const handlesubmit = async (e: FormEvent) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
-           
             const response = await axios.post('/api/user/addapi', {
                 apiName,
                 description,
-                link,
+                link
             })
 
-            console.log(response.data);
-            setSuccessMessage(response.data.message);
-            toast.success("Api is Added ")
-            setErrorMessage('');
-            setApiName('');
-            setDescription('');
-            setLink('');
-
+            console.log(response.data)
+            setSuccessMessage(response.data.message)
+            toast.success("Api is Added")
+            setErrorMessage('')
+            setApiName('')
+            setDescription('')
+            setLink('')
         } catch (error) {
-            console.error("Error submitting form:", error);
-            setErrorMessage("Failed to add API. Please try again.");
-            setSuccessMessage('');
+            console.error("Error submitting form:", error)
+            setErrorMessage("Failed to add API. Please try again.")
+            setSuccessMessage('')
         }
     }
 
@@ -102,5 +100,5 @@ export default function AddApiForm() {
                 </button>
             </form>
         </div>
-    );
+    )
 }
