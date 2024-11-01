@@ -3,7 +3,7 @@ import Allapi from "@/components/allapi/Allapi"
 import { redirect } from "next/navigation"
 import checklogin from "@/action/checklogin/checklogin"
 
-export async  function allapipage () {
+export default async function allapipage () {
   const isLoggedIn = await checklogin()
 
   if (isLoggedIn) {

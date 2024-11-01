@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import client from "@/db/index";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: number } }) {
   try {
     const { id } = params;
-
-    const tempId = parseInt(id, 10);
+    const tempId=id;
+    // const tempId = parseInt(id, 10);
     console.log("ID:", tempId);
     if (isNaN(tempId)) {
       return NextResponse.json({ error: "Invalid ID parameter" }, { status: 400 });
