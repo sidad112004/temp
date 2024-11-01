@@ -8,7 +8,7 @@ export async  function allapipage () {
 
   if (isLoggedIn) {
       redirect("/dashboard") 
-      return null;
+    
   }
 
   return (
