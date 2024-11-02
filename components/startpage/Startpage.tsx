@@ -77,6 +77,8 @@ const HomePage: React.FC = () => {
             </footer>
         </div>
     );
+
+    
 };
 
 export default HomePage;
