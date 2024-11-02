@@ -1,14 +1,12 @@
 "use server"
 
-import { error } from "console"
 import client from "../db"
+import { User } from "@prisma/client"
 
-export async function signup(name: string, email: string, password: string) {
+export async function signup(name: string, email: string, password: string): Promise<User | null> {
     try {
         const user = await client.user.findUnique({
-            where: {
-                email: email
-            }
+            where: { email }
         })
 
         if (user) {
@@ -17,15 +15,15 @@ export async function signup(name: string, email: string, password: string) {
 
         const newUser = await client.user.create({
             data: {
-                name: name,
-                email: email,
-                password: password
+                name,
+                email,
+                password
             }
         })
 
         return newUser
     } catch (error) {
         console.error("Error in signup:", error)
-        return error
+        return null
     }
 }

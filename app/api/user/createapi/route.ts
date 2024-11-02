@@ -10,12 +10,13 @@ export async function POST(request: NextRequest) {
 
   if (!login) {
     redirect('/start')
+    return // Ensure that the function exits after redirecting
   }
 
   const createdById = Number(login.id)
 
   try {
-    const { fields, count, title } = await request.json()
+    const { fields, count, title }: { fields: Field[]; count: number; title: string } = await request.json()
     const generatedData: Array<Record<string, string | number | boolean | null>> = []
 
     for (let i = 0; i < count; i++) {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     const createdData = await client.customapi.create({
       data: {
-        title: title,
+        title,
         fields: generatedData,
         sampleSize: count,
         createdById,

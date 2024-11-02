@@ -1,6 +1,5 @@
 import client from "@/db/index"
 import checklogin from "@/action/checklogin/checklogin"
-
 import { NextResponse } from "next/server"
 
 export async function GET() {
@@ -9,7 +8,7 @@ export async function GET() {
     if (!login) {
         return NextResponse.redirect('/start')
     }
-    
+
     const authorId = Number(login.id)
 
     try {

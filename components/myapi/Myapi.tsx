@@ -3,8 +3,6 @@ import { ExternalLinkIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-
-
 interface ApiData {
   id: number;
   title: string;
@@ -15,15 +13,13 @@ export default function MyApiComponent() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-
-
   const handleApi = async () => {
     try {
       const res = await axios.get('/api/user/myapi');
-      const actualData: ApiData[] = res.data.data; // Assuming the response structure
+      const actualData: ApiData[] = res.data.data; // Ensure this matches your API response structure
       setData(actualData);
     } catch (err) {
-      setError('Failed to load data');
+      setError(err instanceof Error ? err.message : 'Failed to load data');
       console.error(err);
     } finally {
       setLoading(false);
@@ -44,9 +40,9 @@ export default function MyApiComponent() {
 
   return (
     <div className="grid gap-6 p-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-      {data.map(({ id, title }, index) => (
+      {data.map(({ id, title }) => (
         <div
-          key={index}
+          key={id} // Use id as the unique key
           className="p-6 rounded-lg shadow-lg bg-gray-800 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 cursor-pointer"
         >
           <h2 className="text-2xl font-semibold text-white mb-2">{title}</h2>

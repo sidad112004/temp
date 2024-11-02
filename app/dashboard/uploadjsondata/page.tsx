@@ -1,4 +1,5 @@
 "use server";
+
 import { redirect } from "next/navigation";
 import checklogin from "@/action/checklogin/checklogin";
 import Uploadjson from "@/components/uploadjson/Uploadjson";
@@ -8,7 +9,7 @@ export default async function UploadJsonPage() {
 
     if (!isLoggedIn) {
         redirect("/start");
-        return null; 
+        return; // Updated to return nothing after redirect
     }
 
     return (

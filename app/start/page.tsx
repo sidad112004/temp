@@ -1,18 +1,19 @@
 "use server";
-import checklogin from "@/action/checklogin/checklogin"
-import Startpage from "@/components/startpage/Startpage"
-import { redirect } from "next/navigation"
 
-export default async function startp() {
-    const isLoggedIn = await checklogin()
+import checklogin from "@/action/checklogin/checklogin";
+import Startpage from "@/components/startpage/Startpage";
+import { redirect } from "next/navigation";
 
-    if (isLoggedIn) {
-        redirect('/dashboard')
-    }
+export default async function StartPage() {
+  const isLoggedIn = await checklogin();
 
-    return (
-        <>
-        <Startpage/>
-        </>
-    )
+  if (isLoggedIn) {
+    redirect('/dashboard');
+  }
+
+  return (
+    <>
+      <Startpage />
+    </>
+  );
 }

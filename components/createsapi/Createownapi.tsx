@@ -1,48 +1,48 @@
-"use client";
+"use client"
 
-import { useState } from 'react';
-import { Field, FieldType } from '@/utilite/type';
-import axios from 'axios';
-import { toast } from 'sonner';
+import { useState } from 'react'
+import { Field, FieldType } from '@/utilite/type'
+import axios from 'axios'
+import { toast } from 'sonner'
 
 export default function GenerateDataComponent() {
-  const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }]);
-  const [count, setCount] = useState<number>(5);
-  const [title, setTitle] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [fields, setFields] = useState<Field[]>([{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }])
+  const [count, setCount] = useState<number>(5)
+  const [title, setTitle] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const addField = () => {
-    setFields([...fields, { name: '', type: 'string' }]);
-  };
+    setFields([...fields, { name: '', type: 'string' }])
+  }
 
   const handleFieldChange = (index: number, key: keyof Field, value: string) => {
-    const updatedFields = [...fields];
-    updatedFields[index][key] = value as FieldType;
-    setFields(updatedFields);
-  };
+    const updatedFields = [...fields]
+    updatedFields[index][key] = value as FieldType
+    setFields(updatedFields)
+  }
 
   const generateData = async () => {
     if (title === "") {
-      toast.error("Please provide a title");
-      return;
+      toast.error("Please provide a title")
+      return
     }
 
     if (fields.some(field => field.name.trim() === "")) {
-      toast.error("Field names cannot be empty");
-      return;
+      toast.error("Field names cannot be empty")
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
     try {
-      await axios.post('/api/user/createapi', { fields, count, title });
-      toast.success("API created successfully! Check the page for your API.");
+      await axios.post('/api/user/createapi', { fields, count, title })
+      toast.success("API created successfully! Check the page for your API.")
     } catch (error) {
-      toast.error("An error occurred while generating data. Please try again.");
-      console.error(error);
+      toast.error("An error occurred while generating data. Please try again.")
+      console.error(error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="flex flex-col items-center p-8">
@@ -112,5 +112,5 @@ export default function GenerateDataComponent() {
         </button>
       </div>
     </div>
-  );
+  )
 }

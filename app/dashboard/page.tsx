@@ -8,7 +8,7 @@ export default async function AllApiPage() {
 
     if (!isLoggedIn) {
         redirect("/start/allapi"); 
-        return; 
+        return null; 
     }
 
     return (

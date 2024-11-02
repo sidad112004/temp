@@ -11,14 +11,18 @@ export default function Navbar(): JSX.Element {
       <nav>
         <ul className="flex space-x-6">
           <li>
-            <button onClick={() => signIn()}>
+            <button 
+              onClick={() => signIn()} 
+              aria-label="Login"
+              className="inline-block"
+            >
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Login
               </span>
             </button>
           </li>
           <li>
-            <Link href="/signup">
+            <Link href="/signup" aria-label="Signup">
               <span className="inline-block px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300">
                 Signup
               </span>

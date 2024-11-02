@@ -1,47 +1,46 @@
-"use client"
-import { useState, FormEvent } from 'react'
-import axios from 'axios'
-import { toast } from 'sonner'
+"use client";
 
-
+import { useState, FormEvent } from 'react';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 export default function AddApiForm() {
-   
-    const [apiName, setApiName] = useState<string>('')
-    const [description, setDescription] = useState<string>('')
-    const [link, setLink] = useState<string>('')
-    const [errorMessage, setErrorMessage] = useState<string>('')
-    const [successMessage, setSuccessMessage] = useState<string>('')
+    const [apiName, setApiName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [link, setLink] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
-    const handlesubmit = async (e: FormEvent) => {
-        e.preventDefault()
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
             const response = await axios.post('/api/user/addapi', {
                 apiName,
                 description,
                 link
-            })
+            });
 
-            console.log(response.data)
-            setSuccessMessage(response.data.message)
-            toast.success("Api is Added")
-            setErrorMessage('')
-            setApiName('')
-            setDescription('')
-            setLink('')
+            console.log(response.data);
+            setSuccessMessage(response.data.message);
+            toast.success("API is added");
+            setErrorMessage('');
+            // Reset the form fields
+            setApiName('');
+            setDescription('');
+            setLink('');
         } catch (error) {
-            console.error("Error submitting form:", error)
-            setErrorMessage("Failed to add API. Please try again.")
-            setSuccessMessage('')
+            console.error("Error submitting form:", error);
+            setErrorMessage("Failed to add API. Please try again.");
+            setSuccessMessage('');
         }
-    }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-6">
             <h1 className="text-4xl font-bold text-white mb-6 tracking-tight text-center">
                 Add New API
             </h1>
-            <form className="w-full max-w-md" onSubmit={handlesubmit}>
+            <form className="w-full max-w-md" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-1 text-lg font-semibold" htmlFor="apiName">
                         API Name
@@ -95,5 +94,5 @@ export default function AddApiForm() {
                 </button>
             </form>
         </div>
-    )
+    );
 }

@@ -9,6 +9,7 @@ export async function POST(req: Request) {
 
     if (!login) {
       redirect('/start')
+      return // Ensure that the function exits after redirecting
     }
 
     const authorId = Number(login.id)
@@ -20,7 +21,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    console.log("yes")
     const data = await client.post.create({
       data: {
         apiName,

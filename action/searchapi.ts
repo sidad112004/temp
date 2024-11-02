@@ -1,18 +1,18 @@
 "use server"
 
 import client from "../db"
+import { Post } from "@prisma/client"
 
-export async function searchapi(searchTerm: string) {
+export async function searchapi(searchTerm: string): Promise<Post[]> {
     try {
-        if (searchTerm === '') {
-            const data = await client.post.findMany({})
-            return data
-        }
-        const data = await client.post.findMany({
-            where: {
-                apiName: searchTerm
-            }
-        })
+        const data = searchTerm === '' 
+            ? await client.post.findMany() 
+            : await client.post.findMany({
+                  where: {
+                      apiName: searchTerm
+                  }
+              })
+
         return data
     } catch (error) {
         console.error("Error fetching API data:", error)

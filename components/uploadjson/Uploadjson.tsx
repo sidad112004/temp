@@ -7,6 +7,7 @@ import { toast } from "sonner";
 const JsonUploader: React.FC = () => {
     const [title, setTitle] = useState<string>('');
     const [json, setJson] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = async () => {
         try {
@@ -14,11 +15,24 @@ const JsonUploader: React.FC = () => {
                 toast.error("Enter all the fields");
                 return;
             }
-           await axios.post('/api/user/jsonupload', { title, json });
+
+            // JSON validation
+            try {
+                JSON.parse(json);
+            } catch {
+                toast.error("Invalid JSON format");
+                return;
+            }
+
+            setLoading(true);
+            await axios.post('/api/user/jsonupload', { title, json });
             toast.success("JSON file is uploaded. Check your API section");
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            toast.error("An error occurred while uploading the JSON file");
+            const errorMessage = err.response?.data?.message || "An error occurred while uploading the JSON file";
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -32,6 +46,7 @@ const JsonUploader: React.FC = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Title"
+                aria-label="Title"
             />
 
             <textarea
@@ -39,10 +54,17 @@ const JsonUploader: React.FC = () => {
                 onChange={(e) => setJson(e.target.value)}
                 className="w-3/4 max-w-lg h-40 p-4 text-xl bg-gray-800 border rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out"
                 placeholder="Paste sample JSON data"
+                aria-label="JSON Data"
             />
 
-            <button onClick={handleSubmit} className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none transform hover:scale-105 transition-transform duration-200 ease-in-out">
-                Upload
+            <button 
+                onClick={handleSubmit} 
+                disabled={loading}
+                className={`px-8 py-3 text-white font-semibold rounded-md transition-transform duration-200 ease-in-out ${
+                    loading ? 'bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'
+                } focus:outline-none transform hover:scale-105`}
+            >
+                {loading ? 'Uploading...' : 'Upload'}
             </button>
         </div>
     );

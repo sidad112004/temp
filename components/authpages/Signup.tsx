@@ -1,41 +1,40 @@
-"use client";   
-import { signup } from "@/action/signup";
-
-import { toast } from "sonner";
-import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import { signIn } from "next-auth/react";
+"use client"   
+import { signup } from "@/action/signup"
+import { toast } from "sonner"
+import { useState } from "react"
+import { useRouter } from 'next/navigation'
+import { signIn } from "next-auth/react"
 
 export default function SignUp() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     const handleSignup = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault()
         if (name === '' || email === '' || password === '') {
-            toast.error("Fill all the fields");
-            return;
+            toast.error("Fill all the fields")
+            return
         }
 
-        setIsLoading(true);
+        setIsLoading(true)
         try {
-            const data = await signup(name, email, password);
+            const data = await signup(name, email, password)
             if (data === null) {
-                toast.error("User already exists");
-                return;
+                toast.error("User already exists")
+                return
             }
-            toast.success("Signup successful");
-            router.push('/start');
+            toast.success("Signup successful")
+            router.push('/start')
         } catch (error) {
-            toast.error("An error occurred. Please try again.");
-            console.error(error);
+            toast.error("An error occurred. Please try again.")
+            console.error(error)
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
-    };
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
@@ -102,5 +101,5 @@ export default function SignUp() {
                 </form>
             </div>
         </div>
-    );
+    )
 }

@@ -12,12 +12,12 @@ export async function POST(req: NextRequest) {
     const createdById = Number(login.id)
 
     try {
-        const { title, json } = await req.json()
+        const { title, json }: { title: string; json: string | object[] } = await req.json()
 
         const jsonData = typeof json === 'string' ? JSON.parse(json) : json
 
         if (!Array.isArray(jsonData) || !jsonData.every(item => typeof item === 'object')) {
-            return NextResponse.json({ success: false, error: 'Invalid JSON format. Expected an array of objects.' })
+            return NextResponse.json({ success: false, error: 'Invalid JSON format. Expected an array of objects.' }, { status: 400 })
         }
 
         const newdata = await client.customapi.create({
@@ -32,6 +32,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, data: newdata })
     } catch (error) {
         console.error("Error in uploading JSON data:", error)
-        return NextResponse.json({ success: false, error: 'Failed to upload JSON data.' })
+        return NextResponse.json({ success: false, error: 'Failed to upload JSON data.' }, { status: 500 })
     }
 }

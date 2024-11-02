@@ -1,14 +1,14 @@
-import Navbar from "@/components/startpage/Navbar"
+import Navbar from "@/components/startpage/Navbar";
 
 export default function RootLayout({
-    children
-}: Readonly<{
-    children: React.ReactNode
-}>) {
-    return (
-        <>
-        <Navbar/>
-        {children}
-        </>
-    )
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }

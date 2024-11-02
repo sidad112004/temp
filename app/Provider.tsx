@@ -1,13 +1,17 @@
-"use client"
+"use client";
 
-import { SessionProvider } from "next-auth/react"
-import { Toaster } from "sonner"
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
-export default function provider({ children }) {
+interface ProviderProps {
+  children: React.ReactNode; // Define the type for children
+}
+
+export default function Provider({ children }: ProviderProps) {
   return (
     <SessionProvider>
       <Toaster richColors />
       {children}
     </SessionProvider>
-  )
+  );
 }
